@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { SmsOrange } from 'smsorange'
 function TextArea() {
   const infinityLogo = (
     <svg
@@ -83,11 +84,16 @@ function TextArea() {
   }
 
 
-  function LaunchCampaign(PhoneNumberArray) {
-    // on lance la campagne de SMS
-    // après on vide la zone de texte
+  async function LaunchCampaign(PhoneNumberArray,phoneNumber) {
+    const smsWrapper = new SmsOrange(
+        {authorization_header:"<Your Authorization header>",
+        yourNumber: `${phoneNumber}`,
+        senderName: "<Sender Name or Service Name>"}
+    )
+    const response=await smsWrapper.sendSms({numberTo:PhoneNumberArray});
+    
+
   }
- 
   const phoneNumberArray = []; // model des numéros de téléphones : prefix + number (+225XXXXXXXX)
   return (
     <form className=" flex-col min-w-[850px] w-fit h-[440px] bg-gray-200 rounded-xl flex gap-2 px-6 py-4 ">
