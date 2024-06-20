@@ -20,6 +20,7 @@ function TextArea() {
   function updateText(e) {
     let value = e.target.value;
     setEnhanced({
+      ...enhanced,
       text: value,
     });
   }
@@ -70,28 +71,17 @@ function TextArea() {
     e.preventDefault();
     try {
      // affiche rle loader 
-     setEnhanced({ready:false})
+     setEnhanced({...enhanced,ready:false})
       const response = await Enhancer();
-    setEnhanced({ready:true})
+    setEnhanced({...enhanced, ready:true})
     //supprimer le loader 
       const enhancedText = JSON.stringify(response.result);
-      setEnhanced({ text: enhancedText });
+      setEnhanced({...enhanced, text: enhancedText });
     } catch (error) {
       console.error(`Error enhancing text: ${error}`);
     }
   }
 
-  function handleLoader(e) {
-    try {
-      if (!enhanced.ready) {
-        e.target.classList.add('hidden');//revoir cette partie 
-      } else {
-        e.target.classList.add('hidden');
-      }
-    } catch (error) {
-      console.error(`il y a une erreur du type ${error}`);
-    }
-  }
 
   function LaunchCampaign(PhoneNumberArray) {
     // on lance la campagne de SMS
@@ -104,17 +94,18 @@ function TextArea() {
       <p className=" text-lg font-DM font-bold">
         Send your messages ( they will surely like it ){" "}
       </p>
-      <div id="loader" className=" rounded-lg flex items-center justify-center w-[800px] h-[255px] absolute mt-8 bg-black/30  backdrop-blur-sm ">
-{/*                                 
-        <div class="text-center">
-            <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-yellow-500 mx-auto"></div>
-            <h2 class="text-zinc-900 dark:text-white mt-4">Loading...</h2>
-            <p class="text-white">
-                AI is crafting your text , making it better !!!!
-            </p>
-         </div> */}
-      
-      </div>
+         {
+            !enhanced.ready ? <div id="loader" className=" rounded-lg flex items-center justify-center w-[800px] h-[255px] absolute mt-8 bg-black/30  backdrop-blur-sm ">                                
+            <div class="text-center">
+                <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-yellow-500 mx-auto"></div>
+                <h2 class="text-zinc-900 dark:text-white mt-4">Loading...</h2>
+                <p class="text-white">
+                    AI is crafting your text , making it better !!!!
+                </p>
+             </div> 
+          
+          </div> : null
+         }
       <textarea
         onChange={updateText}
         value={enhanced.text}
