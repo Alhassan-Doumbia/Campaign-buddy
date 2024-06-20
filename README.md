@@ -8,10 +8,7 @@ This application allows users to compose, enhance, and send text messages using 
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Components](#components)
-- [API Integration](#api-integration)
-- [License](#license)
-- [Additional Notes](#additional-notes)
+- [Interface](#interface)
 
 ## Features
 
@@ -52,3 +49,7 @@ This application allows users to compose, enhance, and send text messages using 
 2. Open your browser and navigate to http://localhost:3000.
 
 3. Type your message in the text area, enhance it using the AI service, and send it via SMS.
+
+### Interface 
+![App Screenshots](./src/assets/image.png) 
+
